@@ -1,0 +1,21 @@
+jobs:
+  ...
+  test-frontend:
+    docker:
+      - image: cimg/node:17.6.0
+    steps:
+      - checkout
+      - run:
+          name: Install requirements
+          command: cd web && npm install
+      - run:
+          name: Run tests and collect coverage
+          command: cd web && npm run test
+      - codecov/upload
+
+workflows:
+  ...
+  build-test:
+    jobs:
+      ...
+      - test-frontend
